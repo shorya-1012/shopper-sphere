@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -16,6 +16,12 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        'kanit': ['var(--font-kanit)'],
+        'nunito': ['var(--font-nunito)'],
+        'heading': ['var(--font-heading)'],
+        'review': ['var(--font-review)'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

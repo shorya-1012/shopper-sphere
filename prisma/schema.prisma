@@ -12,11 +12,73 @@ datasource db {
 }
 
 model User {
-  id              String @unique
+  id              String   @unique
   username        String
-  profileImageUrl String @db.Text
-  role            Role   @default(USER)
+  profileImageUrl String   @db.Text
+  role            Role     @default(USER)
   email           String
+  Orders          Order[]
+  Cart            Cart[]
+  Review          Review[]
+}
+
+model Product {
+  id           String         @id @default(cuid())
+  name         String
+  price        Decimal
+  description  String         @db.Text
+  availability Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  category     Category       @relation(fields: [categoryName], references: [name])
+  Orders       Order[]
+  Cart         Cart[]
+  Review       Review[]
+  ProdcutImage ProdcutImage[]
+  categoryName String
+}
+
+model ProdcutImage {
+  id        String  @id @default(cuid())
+  imageURL  String  @db.Text
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model Category {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  Product Product[]
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  buyer     User     @relation(fields: [buyerId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  quantity  Int
+  buyerId   String
+  productId String
+}
+
+model Cart {
+  id        String  @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+  quantity  Int
+  productId String
+  userId    String
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  rating       Int
+  commentTitle String
+  comment      String   @db.Text
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  product      Product  @relation(fields: [productId], references: [id])
+  userId       String
+  productId    String
 }
 
 enum Role {
