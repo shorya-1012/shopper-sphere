@@ -13,6 +13,7 @@ export async function POST(req: Request) {
 
     try {
         // Create Checkout Sessions from body params.
+        const origin = req.headers.get('origin')
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: cartItems,
@@ -20,8 +21,8 @@ export async function POST(req: Request) {
             shipping_address_collection: {
                 allowed_countries: ['IN']
             },
-            success_url: `http://localhost:3000/`,
-            cancel_url: `http://localhost:3000/cart`,
+            success_url: `${origin}/success`,
+            cancel_url: `${origin}/cart`,
             payment_intent_data: {
                 metadata: {
                     userId,
