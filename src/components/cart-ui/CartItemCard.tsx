@@ -9,7 +9,7 @@ type Props = {
     productId: string,
     productName: string,
     quantity: number,
-    price: Decimal
+    price: string
 }
 
 const CartItemCard = (props: Props) => {
@@ -30,7 +30,7 @@ const CartItemCard = (props: Props) => {
                 <Link href={`/products/${props.productId}`}>
                     <span className="font-kanit sm:text-xl">{props.productName}</span>
                 </Link>
-                <span className="sm:text-lg">₹{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                <span className="sm:text-lg">₹{props.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                 <SetQuantityButton productId={props.productId} quantity={props.quantity} />
                 <DeleteCartItemButton productId={props.productId} />
             </div>

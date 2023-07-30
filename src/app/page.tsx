@@ -23,7 +23,7 @@ const page = async () => {
                   <ProductCard
                     id={product.id}
                     name={product.name}
-                    price={product.price}
+                    price={product.price.toString()}
                     description={product.description}
                     images={product.ProdcutImage}
                     inDuration={300 + (i * 200)}

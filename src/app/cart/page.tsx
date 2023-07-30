@@ -1,7 +1,7 @@
 import CartItemCard from "@/components/cart-ui/CartItemCard"
 import ProceedToCheckOutButton from "@/components/cart-ui/ProceedToCheckOutButton"
 import { db } from "@/lib/db"
-import { auth } from "@clerk/nextjs"
+import { auth, clerkClient } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 
 const page = async () => {
@@ -22,13 +22,27 @@ const page = async () => {
         }
     })
 
-    let subtotal = 0
+    const cartItmesForCheckOut = cartItems.map(item => {
+        return {
+            quantity: item.quantity,
+            price_data: {
+                currency: "inr",
+                unit_amount: parseInt(item.product.price.toString()) * 100,
+                product_data: {
+                    name: item.product.name,
+                    images: [item.product.ProdcutImage[0].imageURL]
+                }
+            }
+        }
+    })
 
+    const productIds = cartItems.flatMap(item => item.productId)
+
+    let subtotal = 0
     cartItems.flatMap(cartItem => {
         subtotal += cartItem.quantity * parseInt(cartItem.product.price.toString())
         return 0
     })
-
 
     if (cartItems.length === 0) {
         return (
@@ -46,7 +60,10 @@ const page = async () => {
                         <span className="font-review">SubTotal :</span>
                         <span className="font-review">₹{subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     </div>
-                    <ProceedToCheckOutButton />
+                    <ProceedToCheckOutButton
+                        cartItems={cartItmesForCheckOut}
+                        productIds={productIds}
+                    />
                 </div>
             </div>
             {
@@ -57,7 +74,7 @@ const page = async () => {
                             quantity={cartItem.quantity}
                             productId={cartItem.product.id}
                             productName={cartItem.product.name}
-                            price={cartItem.product.price}
+                            price={cartItem.product.price.toString()}
                             productImage={cartItem.product.ProdcutImage[0].imageURL}
                         />
                     )

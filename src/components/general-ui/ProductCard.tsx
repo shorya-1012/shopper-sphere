@@ -10,7 +10,7 @@ import AverageRating from "./AverageRating"
 type Props = {
     id: string
     name: string,
-    price: Decimal,
+    price: string,
     description: string,
     images: ProdcutImage[],
     inDuration: number
@@ -39,7 +39,7 @@ const ProductCard = (props: Props) => {
             </div>
             <div className="flex flex-col gap-2 mt-3">
                 <span className="font-kanit md:text-lg">{props.name}</span>
-                <span>₹{props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                <span>₹{props.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
             </div>
         </div>
     )

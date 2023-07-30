@@ -51,12 +51,12 @@ model Category {
 }
 
 model Order {
-  id        String   @id @default(cuid())
-  buyer     User     @relation(fields: [buyerId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
-  createdAt DateTime @default(now())
-  quantity  Int
-  buyerId   String
+  id        String      @id @default(cuid())
+  user      User        @relation(fields: [userId], references: [id])
+  product   Product     @relation(fields: [productId], references: [id])
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  userId    String
   productId String
 }
 
@@ -84,4 +84,9 @@ model Review {
 enum Role {
   ADMIN
   USER
+}
+
+enum OrderStatus {
+  DELIVERED
+  PENDING
 }
