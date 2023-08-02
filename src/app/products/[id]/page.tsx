@@ -1,7 +1,7 @@
 import { db } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { Truck, ShieldCheck, Loader2 } from "lucide-react"
-import ProductImageSlider from "@/components/products-page-ui/ProductImageSlider"
+import ProductImageContainer from "@/components/products-page-ui/ProductImageContainer"
 import AddToCartButton from "@/components/products-page-ui/AddToCartButton"
 import ReviewSection from "@/components/products-page-ui/reviews-ui/ReviewSection"
 import AverageRating from "@/components/general-ui/AverageRating"
@@ -24,7 +24,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         return (
             <div className="flex flex-col items-center">
                 <div className="w-screen flex flex-col md:flex-row items-center px-5 md:items-start md:justify-around py-5 my-3 font-nunito">
-                    <ProductImageSlider images={product.ProdcutImage} />
+                    <ProductImageContainer images={product.ProdcutImage} />
                     <div data-aos="fade-up" className="w-screen md:w-[60vw] flex flex-col gap-3 px-5">
                         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-heading">
                             {product.name}

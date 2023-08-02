@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 const page = async () => {
 
@@ -19,8 +20,25 @@ const page = async () => {
           ProdcutImage: true
         }
       }
+    },
+    orderBy: {
+      createdAt: 'desc'
     }
   })
+
+  if (orders.length === 0) {
+    return (
+      <div className="w-screen h-screen flex flex-col justify-center items-center pb-10 gap-3">
+        <h1 className=" font-heading text-lg">You haven't ordered anything yet</h1>
+        <Link href={'/'}>
+          <div className="h-[40px] w-[250px] rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm flex gap-3 justify-center items-center">
+            Continue Shopping
+            <ArrowRight size={'15px'} />
+          </div>
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className="w-screen min-h-screen flex flex-col items-start sm:px-5 py-5">

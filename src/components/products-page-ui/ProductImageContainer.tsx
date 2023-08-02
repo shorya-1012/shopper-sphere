@@ -1,14 +1,13 @@
 'use client'
 import { ProdcutImage } from "@prisma/client"
 import { useState } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 
 type Props = {
     images: ProdcutImage[]
 }
 
-const ProductImageSlider = ({ images }: Props) => {
+const ProductImageContainer = ({ images }: Props) => {
 
     const [currDisplayImage, setCurrDisplayImage] = useState(0)
 
@@ -44,4 +43,4 @@ const ProductImageSlider = ({ images }: Props) => {
     )
 }
 
-export default ProductImageSlider
+export default ProductImageContainer;

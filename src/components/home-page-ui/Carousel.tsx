@@ -96,7 +96,7 @@ const Carousel = () => {
                 }
                 scrollToPrev()
             }}
-                className="p-2 bg-gray-900/20 w-fit text-white rounded-[50%] absolute top-[45%] ms-2">
+                className="p-2 bg-gray-900/20 w-fit text-white rounded-[50%] absolute top-[50%] ms-2">
                 <ChevronLeft size={'24px'} />
             </button>
             <button onClick={() => {
@@ -106,7 +106,7 @@ const Carousel = () => {
                 }
                 scrollToNext()
             }}
-                className="p-2 bg-gray-900/20 w-fit text-white rounded-[50%] absolute top-[45%] right-0 mr-2">
+                className="p-2 bg-gray-900/20 w-fit text-white rounded-[50%] absolute top-[50%] right-0 mr-2">
                 <ChevronRight size={'24px'} />
             </button>
         </div>

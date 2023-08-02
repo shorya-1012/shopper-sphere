@@ -15,6 +15,7 @@ type Props = {
 const CartItemCard = (props: Props) => {
     return (
         <div
+            data-aos="fade-right"
             className="w-full mx-3 sm:mx-5 sm:w-[600px] flex gap-3 items-center sm:items-start shrink-0 my-2 py-5 border-y-[1px] border-gray-300">
             <div className="relative h-[160px] w-[160px] sm:h-[190px] sm:w-[190px] overflow-hidden rounded-xl bg-zinc-200 shrink-0">
                 <Image

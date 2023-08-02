@@ -53,6 +53,7 @@ const AddToCartButton = ({ productId }: Props) => {
                 title: 'Success',
                 description: 'Product Added to cart successfully'
             })
+            router.refresh()
         }
     })
 

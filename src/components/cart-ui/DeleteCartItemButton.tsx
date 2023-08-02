@@ -54,7 +54,7 @@ const DeleteCartItemButton = ({ productId }: Props) => {
                 </div> :
                 <div className="flex items-center gap-3">
                     <Trash2 size={'12px'} />
-                    <span>Delete</span>
+                    <span>Remove</span>
                 </div>
             }
         </button>
