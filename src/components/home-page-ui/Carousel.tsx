@@ -64,18 +64,17 @@ const Carousel = () => {
             }
             scrollToNext()
         }
-        const slideInterval = setInterval(handleSlideChange, 10000);
+        const slideInterval = setInterval(handleSlideChange, 8000);
         return () => clearInterval(slideInterval);
     }, [currSlide])
 
     return (
         <div className="w-screen relative overflow-x-hidden z-10">
-
             <div className="carousel flex overflow-hidden scroll-smooth">
                 {
                     slideData.map((data, index) => {
                         return (
-                            <div key={index} className='sm:z-0 h-[50vh] lg:h-[80vh]'>
+                            <div key={index} className='sm:z-0 h-[50vh] lg:h-[85vh]'>
                                 <div
                                     style={{ backgroundImage: `url(${data.imageUrl})` }}
                                     className='main-image w-screen h-full bg-cover bg-no-repeat bg-center shrink-0' >

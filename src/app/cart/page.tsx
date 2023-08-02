@@ -1,7 +1,7 @@
 import CartItemCard from "@/components/cart-ui/CartItemCard"
 import ProceedToCheckOutButton from "@/components/cart-ui/ProceedToCheckOutButton"
 import { db } from "@/lib/db"
-import { auth, clerkClient } from "@clerk/nextjs"
+import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 
 const page = async () => {
@@ -53,10 +53,10 @@ const page = async () => {
     }
 
     return (
-        <div className="w-screen py-5 flex flex-col items-start gap-3 overflow-x-hidden">
-            <div className="w-screen h-[100px] flex justify-center items-center text-2xl mb-5 ">
-                <div data-aos="fade-down" className="flex flex-col items-center p-4 shadow-xl rounded-2xl my-5">
-                    <div className="flex justify-between w-[300px] md:w-[550px] p-5 ">
+        <div className="w-screen py-5 flex flex-col lg:flex-row md:justify-between gap-3 overflow-x-hidden">
+            <div className="h-[100px] lg:order-2 flex justify-center items-center text-2xl my-5 lg:my-0 lg:mr-5">
+                <div className="flex flex-col items-center p-4 shadow-xl rounded-2xl my-5">
+                    <div className="flex justify-between w-[300px] md:w-[450px] p-5 ">
                         <span className="font-review">SubTotal :</span>
                         <span className="font-review">₹{subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     </div>
@@ -66,20 +66,22 @@ const page = async () => {
                     />
                 </div>
             </div>
-            {
-                cartItems.map(cartItem => {
-                    return (
-                        <CartItemCard
-                            key={cartItem.id}
-                            quantity={cartItem.quantity}
-                            productId={cartItem.product.id}
-                            productName={cartItem.product.name}
-                            price={cartItem.product.price.toString()}
-                            productImage={cartItem.product.ProdcutImage[0].imageURL}
-                        />
-                    )
-                })
-            }
+            <div className="lg:order-1 flex flex-col overflow-x-hidden lg:ms-3">
+                {
+                    cartItems.map(cartItem => {
+                        return (
+                            <CartItemCard
+                                key={cartItem.id}
+                                quantity={cartItem.quantity}
+                                productId={cartItem.product.id}
+                                productName={cartItem.product.name}
+                                price={cartItem.product.price.toString()}
+                                productImage={cartItem.product.ProdcutImage[0].imageURL}
+                            />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
