@@ -4,21 +4,22 @@ import { useRouter } from "next/navigation"
 
 type Props = {
     pageParams: number;
+    searchParams: string
     isNextAvailable: boolean;
     isPrevAvailable: boolean;
 }
 
-const PaginationButtons = ({ pageParams, isNextAvailable, isPrevAvailable }: Props) => {
+const PaginationButtons = ({ pageParams, searchParams, isNextAvailable, isPrevAvailable }: Props) => {
 
     const router = useRouter()
 
     const handleNextPress = () => {
-        router.push(`/products/?pageParams=${pageParams + 1}`)
+        router.push(`/products?pageParams=${pageParams + 1}&key=${searchParams}`)
     }
 
     const handlePrevPress = () => {
         if (pageParams !== 1) {
-            router.push(`/products/?pageParams=${pageParams - 1}`)
+            router.push(`/products?pageParams=${pageParams - 1}&key=${searchParams}`)
         }
 
     }

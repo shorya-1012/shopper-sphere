@@ -7,17 +7,32 @@ const page = async ({ searchParams }:
     { searchParams: { [key: string]: string | undefined } }
 ) => {
 
-    let queryParams = searchParams.pageParams || '1'
-    if (queryParams === '0') {
-        queryParams = '1'
+    console.log(searchParams)
+
+    let queryPageParams = searchParams.pageParams || '1'
+    if (queryPageParams === '0') {
+        queryPageParams = '1'
     }
-    const pageParams = parseInt(queryParams)
+    const pageParams = parseInt(queryPageParams)
+
+    const querySearchParams = searchParams.key || ''
 
     const productsOnOnePage = 2
 
-    const totalProducts = await db.product.count()
+    const totalProducts = await db.product.count({
+        where: {
+            name: {
+                contains: querySearchParams
+            }
+        }
+    })
 
     const products = await db.product.findMany({
+        where: {
+            name: {
+                contains: querySearchParams
+            }
+        },
         skip: (pageParams - 1) * productsOnOnePage,
         take: productsOnOnePage,
         include: {
@@ -38,6 +53,10 @@ const page = async ({ searchParams }:
 
     return (
         <div className="w-full overflow-x-hidden flex flex-col items-center py-5 mt-3">
+            {
+                querySearchParams &&
+                <h1 className="font-nunito place-self-start ms-5 font-semibold mb-5">Showing results for '{querySearchParams}'</h1>
+            }
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden">
                 {
                     products.map((product, i) => {
@@ -60,6 +79,7 @@ const page = async ({ searchParams }:
                 pageParams={pageParams}
                 isNextAvailable={isnextavaiable}
                 isPrevAvailable={isPrevAvailable}
+                searchParams={querySearchParams}
             />
         </div>
     )

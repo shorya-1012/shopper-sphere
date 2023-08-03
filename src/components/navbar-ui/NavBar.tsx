@@ -6,15 +6,20 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import logo from '../../../public/logo.png'
+import { useRouter } from "next/navigation"
 
 const NavBar = () => {
     const { userId } = useAuth()
     const [toggleSearch, setToogleSearch] = useState(false)
     const [searchParams, setSearchParams] = useState('')
+    const router = useRouter()
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault()
         console.log(searchParams)
+        const encodedSeachPrams = encodeURI(searchParams)
+        router.push(`/products?pageParams=1&key=${encodedSeachPrams}`)
+        setToogleSearch(false)
     }
 
     return (
