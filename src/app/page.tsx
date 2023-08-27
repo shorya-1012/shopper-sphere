@@ -3,6 +3,7 @@ import BestSellers from "@/components/home-page-ui/BestSellers"
 import { Suspense } from "react"
 import { Loader2 } from "lucide-react"
 import Link from "next/link"
+import TopReviews from "@/components/home-page-ui/top-reviews/TopReviews"
 
 const page = async () => {
 
@@ -20,6 +21,7 @@ const page = async () => {
             See More
           </div>
         </Link>
+        <TopReviews />
       </div>
     </div>
   )

@@ -17,7 +17,7 @@ const page = async ({ searchParams }:
 
     const querySearchParams = searchParams.key || ''
 
-    const productsOnOnePage = 2
+    const productsOnOnePage = 4
 
     const totalProducts = await db.product.count({
         where: {
