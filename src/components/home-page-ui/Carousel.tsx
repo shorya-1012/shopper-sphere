@@ -74,7 +74,7 @@ const Carousel = () => {
                 {
                     slideData.map((data, index) => {
                         return (
-                            <div key={index} className='sm:z-0 h-[50vh] lg:h-[85vh]'>
+                            <div key={index} className='sm:z-0 h-[50vh] lg:h-[calc(100vh-93px)]'>
                                 <div
                                     style={{ backgroundImage: `url(${data.imageUrl})` }}
                                     className='main-image w-screen h-full bg-cover bg-no-repeat bg-center shrink-0' >
