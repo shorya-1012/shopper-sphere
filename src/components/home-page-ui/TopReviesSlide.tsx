@@ -3,20 +3,14 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { BsStar, BsStarFill } from 'react-icons/bs'
-import { Prisma } from '@prisma/client'
 
 import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import { Prisma } from '@prisma/client'
+import TopReviewScrollButton from './TopReviewScrollButton'
 
 type ReviewWithUser = Prisma.ReviewGetPayload<{
     include: {
-        user: true,
-        product: {
-            include: {
-                ProdcutImage: true;
-            }
-        }
+        user: true
     }
 }>
 
@@ -24,23 +18,28 @@ type Props = {
     reviews: ReviewWithUser[]
 }
 
-const TopReviewSlides = ({ reviews }: Props) => {
-    const stars = Array(5).fill(0)
+const TopReviesSlide = ({ reviews }: Props) => {
     return (
         <Swiper
             modules={[Navigation, Pagination]}
-            slidesPerView={3}
+            spaceBetween={10}
+            slidesPerView={1}
+            breakpoints={{
+                1024: { slidesPerView: 3 }
+            }}
+            className='w-full sm:w-[80%] !flex flex-col items-center justify-center mt-5'
         >
             {
                 reviews.map(review => {
+                    const stars = Array(5).fill(0);
                     return (
-                        <SwiperSlide key={review.id}>
-                            <div className='w-[305px] h-[310px] flex flex-col items-center gap-y-2 mx-auto text-center'>
+                        <SwiperSlide>
+                            <div className='w-[305px] h-[310px] flex flex-col items-center text-center mx-auto lg:mx-0'>
                                 <div className="flex text-lg my-1 ms-1 text-yellow-500">
                                     {
                                         stars.map((_, index) => {
                                             return (
-                                                <div key={index}>
+                                                <div>
                                                     {review.rating >= index + 1 ? <BsStarFill /> : <BsStar />}
                                                 </div>
                                             )
@@ -48,17 +47,18 @@ const TopReviewSlides = ({ reviews }: Props) => {
                                     }
                                 </div>
                                 <h1 className='font-semibold font-heading'>{review.commentTitle}</h1>
-                                <p className='text-gray-500'>{review.comment}</p>
-                                <p className='font-review font-semibold text-gray-700'>
-                                    -{review.user.username}
+                                <p className='font-review text-gray-600'>{review.comment}</p>
+                                <p className='text-gray-700 font-semibold font-review'>
+                                    - {review.user.username}
                                 </p>
                             </div>
                         </SwiperSlide>
                     )
                 })
             }
-        </Swiper >
+            <TopReviewScrollButton />
+        </Swiper>
     )
 }
 
-export default TopReviewSlides;
+export default TopReviesSlide
