@@ -17,20 +17,22 @@ type Props = {
             };
         };
     }[],
-    productIds: string[]
+    productIds: string[],
+    productPrices: number[]
 }
 
 const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 )
-const ProceedToCheckOutButton = ({ cartItems, productIds }: Props) => {
+const ProceedToCheckOutButton = ({ cartItems, productIds, productPrices }: Props) => {
 
     const { mutate: proceedToCheckout, isLoading } = useMutation({
         mutationFn: async () => {
             const stripe = await stripePromise
             const payload = {
                 cartItems,
-                productIds
+                productIds,
+                productPrices
             }
             const { data: checkoutSession } = await axios.post('/api/checkout', payload)
 

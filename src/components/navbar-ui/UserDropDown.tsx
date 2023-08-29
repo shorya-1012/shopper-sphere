@@ -46,7 +46,7 @@ const UserDropDown = () => {
                     {
                         user?.role === 'ADMIN' &&
                         <DropdownMenuItem>
-                            <Link href={'/dashboard/add-product'}>
+                            <Link href={'/dashboard/home'}>
                                 <div className="hover:text-gray-500 w-full h-full flex items-center gap-3 my-1 ">
                                     <LayoutDashboard size={15} />
                                     <span className=" text-base font-nunito">Dashboard</span>

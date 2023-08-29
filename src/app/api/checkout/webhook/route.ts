@@ -27,13 +27,15 @@ export async function POST(req: Request) {
 
     if (event.type === 'charge.succeeded') {
         console.log(event.data.object.metadata)
-        const { productIdArray, userId } = event.data.object.metadata
+        const { productIdArray, userId, productPriceArray } = event.data.object.metadata
         const productIds: string[] = JSON.parse(productIdArray)
+        const productPrices: number[] = JSON.parse(productPriceArray)
 
-        const orders = productIds.map(productId => {
+        const orders = productIds.map((productId, i) => {
             return {
                 userId,
-                productId
+                productId,
+                amount: productPrices[i]
             }
         })
 

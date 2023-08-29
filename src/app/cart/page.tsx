@@ -37,6 +37,7 @@ const page = async () => {
     })
 
     const productIds = cartItems.flatMap(item => item.productId)
+    const productPrices = cartItems.flatMap(item => parseInt(item.product.price.toString()) * item.quantity)
 
     let subtotal = 0
     cartItems.flatMap(cartItem => {
@@ -47,7 +48,7 @@ const page = async () => {
     if (cartItems.length === 0) {
         return (
             <div className="w-screen h-screen flex justify-center items-center">
-                <h1 className="font-heading text-2xl">Your Cart is Empty</h1>
+                <h1 className="font-heading text-2x*l">Your Cart is Empty</h1>
             </div>
         )
     }
@@ -63,6 +64,7 @@ const page = async () => {
                     <ProceedToCheckOutButton
                         cartItems={cartItmesForCheckOut}
                         productIds={productIds}
+                        productPrices={productPrices}
                     />
                 </div>
             </div>

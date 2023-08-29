@@ -8,8 +8,9 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { userId } = auth()
 
-    const { cartItems, productIds } = body
+    const { cartItems, productIds, productPrices } = body
     const productIdArray = JSON.stringify(productIds)
+    const productPriceArray = JSON.stringify(productPrices)
 
     try {
         // Create Checkout Sessions from body params.
@@ -26,7 +27,8 @@ export async function POST(req: Request) {
             payment_intent_data: {
                 metadata: {
                     userId,
-                    productIdArray
+                    productIdArray,
+                    productPriceArray
                 }
             }
         });
