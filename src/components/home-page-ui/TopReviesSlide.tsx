@@ -1,7 +1,7 @@
 'use client'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { BsStar, BsStarFill } from 'react-icons/bs'
 
 import 'swiper/css'
@@ -21,7 +21,11 @@ type Props = {
 const TopReviesSlide = ({ reviews }: Props) => {
     return (
         <Swiper
-            modules={[Navigation, Pagination]}
+            modules={[Navigation, Pagination, Autoplay]}
+            autoplay={{
+                delay: 7000,
+                disableOnInteraction: false
+            }}
             spaceBetween={10}
             slidesPerView={1}
             breakpoints={{

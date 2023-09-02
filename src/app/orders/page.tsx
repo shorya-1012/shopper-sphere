@@ -47,8 +47,8 @@ const page = async () => {
         orders.map(order => {
           return (
             <div
-              className="w-full mx-3 sm:mx-5 sm:w-[600px] flex gap-3 items-center sm:items-start shrink-0 my-2 py-5 border-y-[1px] border-gray-300">
-              <div className="relative h-[160px] w-[160px] sm:h-[190px] sm:w-[190px] overflow-hidden rounded-xl bg-zinc-200 shrink-0">
+              className="w-full mx-3 sm:mx-5 sm:w-[600px] flex gap-3 items-center sm:items-start shrink-0 my-2 py-5 px-5 border-y-[1px] border-gray-300">
+              <div className="relative h-[140px] w-[140px] sm:h-[190px] sm:w-[190px] overflow-hidden rounded-xl bg-zinc-200 shrink-0">
                 <Image
                   src={order.product.ProdcutImage[0].imageURL}
                   alt="product-image"

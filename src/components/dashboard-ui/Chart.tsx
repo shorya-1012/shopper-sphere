@@ -1,13 +1,33 @@
 'use client'
 
+import { ChartData } from '@/app/dashboard/home/page'
+import { Card, Title, AreaChart } from '@tremor/react'
+
 type Props = {
-    chartData: any
+    chartData: ChartData[]
 }
 
-const Chart = (props: Props) => {
-    console.log(props.chartData)
+const Chart = ({ chartData }: Props) => {
+
+    const dataFormater = (sales: number) => {
+        return '₹' + Intl.NumberFormat("in").format(sales).toString()
+    }
+
+    console.log(chartData)
+
     return (
-        <div>Chart</div>
+        <Card>
+            <Title>Sales This Year </Title>
+            <AreaChart
+                className="mt-6 w-full"
+                data={chartData}
+                index="month"
+                categories={["sales"]}
+                colors={["indigo"]}
+                valueFormatter={dataFormater}
+                yAxisWidth={48}
+            />
+        </Card>
     )
 }
 

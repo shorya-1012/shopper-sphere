@@ -1,11 +1,8 @@
 'use client'
 
 import { ProdcutImage } from "@prisma/client"
-import { Decimal } from "@prisma/client/runtime/library"
 import Image from "next/image"
-import { useState, useEffect } from "react"
-import { Star } from "lucide-react"
-import AverageRating from "./AverageRating"
+import { useState } from "react"
 
 type Props = {
     id: string

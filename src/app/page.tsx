@@ -10,7 +10,7 @@ const page = async () => {
   return (
     <div className="w-screen min-h-screen overflow-x-hidden">
       <Carousel />
-      <div className="w-full overflow-x-hidden flex flex-col items-center py-5 mt-3">
+      <div className="w-full overflow-hidden flex flex-col items-center py-5 mt-3">
         <h1 className="font-heading text-xl mb-5">Best Sellers</h1>
         <Suspense fallback={<Loader2 className="animate-spin" />}>
           <BestSellers />
