@@ -3,20 +3,15 @@ import { db } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 import z from 'zod'
+import isAdmin from "@/lib/authHelpers"
 
 export async function POST(req: Request) {
 
     const { userId } = auth()
-
-    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-    const user = await db.user.findUnique({
-        where: {
-            id: userId
-        }
-    })
-
-    if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const isauthorized = await isAdmin(userId)
+    if (!isauthorized) {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
+    }
 
     const body = await req.json()
 

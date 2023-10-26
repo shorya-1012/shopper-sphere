@@ -1,24 +1,17 @@
-import AddProductForm from "@/components/dashboard-ui/AddProductForm"
 import EditProductForm from "@/components/dashboard-ui/EditProductForm"
 import { db } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
+import isAdmin from "@/lib/authHelpers"
 
 const page = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
 
+    const { userId } = auth()
+    const isAuthorized = await isAdmin(userId)
+    if (!isAuthorized) redirect('/')
+
     const productId = searchParams.productId
     if (!productId) redirect('/')
-
-    const { userId } = auth()
-    if (!userId) redirect('/')
-
-    const currUser = await db.user.findUnique({
-        where: {
-            id: userId
-        }
-    })
-
-    if (currUser?.role !== 'ADMIN') redirect('/')
 
     const categories = await db.category.findMany()
 

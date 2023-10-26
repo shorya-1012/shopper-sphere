@@ -2,20 +2,14 @@ import { DeleteProductValidator } from "@/lib/apiValidators/deleteProductValidat
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import isAdmin from "@/lib/authHelpers";
 import { z } from "zod";
 
 export async function DELETE(req: Request) {
     const { userId } = auth()
-    if (!userId) return NextResponse.json({ error: 'Not signed in' }, { status: 401 })
-
-    const currentUser = await db.user.findUnique({
-        where: {
-            id: userId
-        }
-    })
-
-    if (!currentUser || currentUser.role !== 'ADMIN') {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const isauthorized = await isAdmin(userId)
+    if (!isauthorized) {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }
 
     const body = await req.json()

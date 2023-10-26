@@ -5,6 +5,7 @@ import moment from "moment"
 import { redirect } from "next/navigation"
 import { Card, Metric } from "@tremor/react"
 import DashboardNavbar from "@/components/dashboard-ui/DashboardNavbar"
+import isAdmin from "@/lib/authHelpers"
 
 export type ChartData = {
     month: string;
@@ -14,21 +15,8 @@ export type ChartData = {
 const page = async () => {
 
     const { userId } = auth()
-
-    if (!userId) redirect('/')
-
-    const currentUser = await db.user.findUnique({
-        where: {
-            id: userId
-        },
-        select: {
-            role: true
-        }
-    })
-
-    if (!currentUser || currentUser.role !== 'ADMIN') {
-        redirect('/')
-    }
+    const isAuthorized = await isAdmin(userId)
+    if (!isAuthorized) redirect('/')
 
     const startOfYear = moment().startOf('year')
 
@@ -53,7 +41,6 @@ const page = async () => {
 
     while (currMonth.isSameOrAfter(startOfYear, 'month')) {
         const month = startOfYear.format("MMM")
-        console.log(month)
         chartData.push({
             month,
             sales: 0

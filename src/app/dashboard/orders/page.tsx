@@ -1,24 +1,16 @@
 import DashboardNavbar from "@/components/dashboard-ui/DashboardNavbar"
 import { DataTable } from "../data-table"
 import { db } from "@/lib/db"
-import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 import { OrderInfo, columns } from "./columns"
+import { auth } from "@clerk/nextjs"
+import isAdmin from "@/lib/authHelpers"
 
 const page = async () => {
 
     const { userId } = auth()
-    if (!userId) redirect('/')
-
-    const currentUser = await db.user.findUnique({
-        where: {
-            id: userId
-        }
-    })
-
-    if (!currentUser || currentUser.role != 'ADMIN') {
-        redirect('/')
-    }
+    const isAuthorized = await isAdmin(userId)
+    if (!isAuthorized) redirect('/')
 
     const orders = await db.order.findMany({
         include: {
