@@ -1,12 +1,11 @@
-import Carousel from "@/components/home-page-ui/Carousel"
-import BestSellers from "@/components/home-page-ui/BestSellers"
-import { Suspense } from "react"
-import { Loader2 } from "lucide-react"
-import Link from "next/link"
-import TopReviews from "@/components/home-page-ui/TopReviews"
+import Carousel from "@/components/home-page-ui/Carousel";
+import BestSellers from "@/components/home-page-ui/BestSellers";
+import { Suspense } from "react";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import TopReviews from "@/components/home-page-ui/TopReviews";
 
 const page = async () => {
-
   return (
     <div className="w-screen min-h-screen overflow-x-hidden">
       <Carousel />
@@ -15,16 +14,16 @@ const page = async () => {
         <Suspense fallback={<Loader2 className="animate-spin" />}>
           <BestSellers />
         </Suspense>
-        <Link href={'/products'}>
-          <div
-            className="bg-red-500 rounded-full py-2 px-5 mt-7 text-white font-nunito">
+        <Link href={"/products"}>
+          <div className="bg-red-500 rounded-full py-2 px-5 mt-7 text-white font-nunito">
             See More
           </div>
         </Link>
         <TopReviews />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
+
