@@ -77,7 +77,7 @@ const Carousel = () => {
           return (
             <div
               key={index}
-              className="sm:z-0 h-[50vh] lg:h-[calc(100vh-193px)]"
+              className="sm:z-0 h-[60vh] lg:h-[calc(100vh-193px)]"
             >
               <div
                 style={{ backgroundImage: `url(${data.imageUrl})` }}
